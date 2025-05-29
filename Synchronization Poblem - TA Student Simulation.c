@@ -87,8 +87,6 @@ int main(int argc, char *argv[]) {
         student_ids[i] = i + 1; // Student IDs from 1 to N
         if (pthread_create(&student_tids[i], NULL, student_thread_func, (void*)student_ids[i]) != 0) {
             fprintf(stderr, "Failed to create student thread %d\n", i + 1);
-            // In a real scenario, might try to clean up already created threads/TA
-            // For this simulation, we'll exit.
             simulation_active = 0; // Signal TA to stop
             sem_post(&student_ready_sem); // Wake up TA if sleeping
             pthread_join(ta_tid, NULL); // Wait for TA to exit
